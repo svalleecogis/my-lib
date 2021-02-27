@@ -11,6 +11,6 @@ export class MyLibService {
 
   doSomething() {
     // Make sure tree shaking won't remove the lib during the build
-    console.log("concat...............",concat([1], 2))
+    console.log("aaaa concat...............",concat([1], 2))
   }
 }
