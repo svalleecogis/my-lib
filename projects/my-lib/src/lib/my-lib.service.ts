@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import concat from 'lodash.concat';
-import { forkJoin, Observable, ReplaySubject } from 'rxjs';
+import { combineLatest, forkJoin, Observable, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,8 @@ export class MyLibService {
   }
 
   private loadScript(url: string): Observable<any> {
+    console.log(`START : loadScript url=[${url}]`);
+
     if (this._loadedLibraries[url]) {
       return this._loadedLibraries[url].asObservable();
     }
@@ -33,11 +35,12 @@ export class MyLibService {
 
     const script = this.document.createElement('script');
     script.type = 'text/javascript';
-    script.async = true;
+    script.async = false;
     script.src = url;
     script.onload = () => {
       this._loadedLibraries[url].next();
       this._loadedLibraries[url].complete();
+      console.log(`END : loadScript url=[${url}]`);
     };
 
     this.document.body.appendChild(script);
@@ -46,6 +49,7 @@ export class MyLibService {
   }
 
   private loadStyle(url: string): Observable<any> {
+    console.log(`START : loadStyle url=[${url}]`);
     if (this._loadedLibraries[url]) {
       return this._loadedLibraries[url].asObservable();
     }
@@ -59,6 +63,7 @@ export class MyLibService {
     style.onload = () => {
       this._loadedLibraries[url].next();
       this._loadedLibraries[url].complete();
+      console.log(`END : loadStyle url=[${url}]`);
     };
 
     const head = document.getElementsByTagName('head')[0];
