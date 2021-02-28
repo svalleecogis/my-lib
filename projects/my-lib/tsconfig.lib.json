@@ -11,12 +11,24 @@
     "lib": [
       "dom",
       "es2018"
-    ]
+    ],
+    "paths": {
+      "lodash.concat": [
+        "./node_modules/lodash.concat"
+      ],
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
+      "@svalleecogis/*" : [
+        "./node_modules/@svalleecogis/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "skipTemplateCodegen": true,
     "strictMetadataEmit": true,
-    "enableResourceInlining": true
+    "enableResourceInlining": true,
+    "preserveSymlinks": true
   },
   "exclude": [
     "src/test.ts",
